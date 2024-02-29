@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-02-2024 a las 19:51:54
+-- Tiempo de generación: 29-02-2024 a las 03:49:17
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
---
+-- Recordar crear  la base de datos antes de importar los archivos sql
 -- Base de datos: `sistemarg`
 --
 
@@ -46,7 +46,9 @@ INSERT INTO `order_detail` (`Id_Client`, `Client_Name`, `Client_Phone`, `Client_
 (24, 'Pepito Testing', '89689890', 'pptest@gmail.com', 'Grecia', 36900, '2024-02-12 10:57:16'),
 (25, 'Pepito Testing', '89689890', 'pptest@gmail.com', 'Grecia', 36900, '2024-02-12 10:58:07'),
 (26, 'Pepito Testing', '89689890', 'pptest@gmail.com', 'Grecia', 88800, '2024-02-12 11:04:33'),
-(27, 'Pepito Testing', '89689890', 'pptest@gmail.com', 'Grecia', 88800, '2024-02-12 11:04:47');
+(27, 'Pepito Testing', '89689890', 'pptest@gmail.com', 'Grecia', 88800, '2024-02-12 11:04:47'),
+(32, 'Karla Robbin', '89689890', 'pptest@gmail.com', 'Grecia', 235000, '2024-02-28 20:25:45'),
+(33, 'Karla Robbin', '89689890', 'pptest@gmail.com', 'Grecia', 235000, '2024-02-28 20:38:00');
 
 -- --------------------------------------------------------
 
@@ -60,22 +62,24 @@ CREATE TABLE `product` (
   `Detail` varchar(150) NOT NULL,
   `Price` float NOT NULL,
   `Code_Product` varchar(100) NOT NULL,
-  `Files` varchar(300) NOT NULL
+  `Files` varchar(300) NOT NULL,
+  `Stock` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `product`
 --
 
-INSERT INTO `product` (`id`, `Name`, `Detail`, `Price`, `Code_Product`, `Files`) VALUES
-(40, 'Espejos NS200', 'Espejos Pulsar NS200', 7000, 'E01', '65c7ada21f3ea_EspejosPulsar-NS200.png'),
-(41, 'Direccional LED', 'Direccional LED Larga GX', 15900, 'DLL01', '65c7ae4919ad4_DireccionalLED-LARGA-GX.png'),
-(42, 'Casco ', 'Casco Color Fucsia - Espumado grueso', 35000, 'CA01', '65c7ae9ab905e_Casco-Rosa.png'),
-(43, 'Tapas Laterales', 'Tapas Laterales AX4 - Color Azules', 25000, 'TL01', '65c7aecb3049d_Tapas-Laterales-X4-Azules.png'),
-(44, 'Bolso Canguro', 'Bolso pequeño tipo canguro estilo dark', 12900, 'B01', '65c7aef067e88_Images-bolso.png'),
-(45, 'Candado', 'Dandado para casco - Filtro negro', 7000, 'CAC01', '65c7af27beb16_Images-candado.png'),
-(46, 'Aro Trasero', 'Aro Trasero XR150- 2.15 x 17', 35000, 'AT01', '65c7af7ac7793_AroTrasero-XR150-2.15X17.png'),
-(47, 'Casco LZ20', 'Casco de color azul', 89000, 'CA01', '65c9daab9cf59_Casco-Rosa.png');
+INSERT INTO `product` (`id`, `Name`, `Detail`, `Price`, `Code_Product`, `Files`, `Stock`) VALUES
+(40, 'Espejos NS200', 'Espejos Pulsar NS200', 7000, 'E01', '65c7ada21f3ea_EspejosPulsar-NS200.png', 7),
+(41, 'Direccional LED', 'Direccional LED Larga GX', 15900, 'DLL01', '65c7ae4919ad4_DireccionalLED-LARGA-GX.png', 2),
+(42, 'Casco ', 'Casco Color Fucsia - Espumado grueso', 35000, 'CA01', '65c7ae9ab905e_Casco-Rosa.png', 10),
+(43, 'Tapas Laterales', 'Tapas Laterales AX4 - Color Azules', 25000, 'TL01', '65c7aecb3049d_Tapas-Laterales-X4-Azules.png', 9),
+(44, 'Bolso Canguro', 'Bolso pequeño tipo canguro estilo dark', 12900, 'B01', '65c7aef067e88_Images-bolso.png', 3),
+(45, 'Candado', 'Dandado para casco - Filtro negro', 7000, 'CAC01', '65c7af27beb16_Images-candado.png', 5),
+(46, 'Aro Trasero', 'Aro Trasero XR150- 2.15 x 17', 35000, 'AT01', '65c7af7ac7793_AroTrasero-XR150-2.15X17.png', 9),
+(47, 'Casco LZ20', 'Casco de color azul', 89000, 'CA01', '65c9daab9cf59_Casco-Rosa.png', 12),
+(49, 'Casco LS2', 'Casco LS2 color negro, espumado sencillo', 40000, 'CLS', '65df69b026c5f_LS2 negro.png', 4);
 
 -- --------------------------------------------------------
 
@@ -90,19 +94,22 @@ CREATE TABLE `sale` (
   `NameProducts` varchar(300) NOT NULL,
   `Total` float NOT NULL,
   `Client_Name` varchar(100) NOT NULL,
-  `Contact` varchar(100) NOT NULL
+  `Contact` varchar(100) NOT NULL,
+  `Cant` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `sale`
 --
 
-INSERT INTO `sale` (`id_Sale`, `User_idOrder`, `Date_Time`, `NameProducts`, `Total`, `Client_Name`, `Contact`) VALUES
-(5, 25, '2024-02-12 10:58:07', 'Candado,Direccional LED,Espejos NS200,Espejos NS200', 36900, 'Pepito Testing', 'Telefono: 89689890 Correo: pptest@gmail.com Direccion: Grecia'),
-(6, 25, '2024-02-12 10:58:07', 'Candado,Direccional LED,Espejos NS200,Espejos NS200', 36900, 'Pepito Testing', 'Telefono: 89689890 Correo: pptest@gmail.com Direccion: Grecia'),
-(7, 27, '2024-02-12 11:04:47', 'Bolso Canguro,Tapas Laterales,Casco ,Direccional LED', 88800, 'Pepito Testing', 'Telefono: 89689890 Correo: pptest@gmail.com Direccion: Grecia'),
-(8, 28, '2024-02-12 12:32:48', 'Bolso Canguro,Tapas Laterales,Casco ,Direccional LED', 88800, 'Pablo Testing V2', 'Telefono: 89689890 Correo: pabptest@gmail.com Direccion: Avenida 500 kilos'),
-(13, 31, '2024-02-12 13:38:01', 'Direccional LED,Casco ,Espejos NS200', 57900, 'Pepito Testing', 'Telefono: 89689890 Correo: pptest@gmail.com Direccion: Grecia');
+INSERT INTO `sale` (`id_Sale`, `User_idOrder`, `Date_Time`, `NameProducts`, `Total`, `Client_Name`, `Contact`, `Cant`) VALUES
+(5, 25, '2024-02-12 10:58:07', 'Candado,Direccional LED,Espejos NS200,Espejos NS200', 36900, 'Pepito Testing', 'Telefono: 89689890 Correo: pptest@gmail.com Direccion: Grecia', ''),
+(6, 25, '2024-02-12 10:58:07', 'Candado,Direccional LED,Espejos NS200,Espejos NS200', 36900, 'Pepito Testing', 'Telefono: 89689890 Correo: pptest@gmail.com Direccion: Grecia', ''),
+(7, 27, '2024-02-12 11:04:47', 'Bolso Canguro,Tapas Laterales,Casco ,Direccional LED', 88800, 'Pepito Testing', 'Telefono: 89689890 Correo: pptest@gmail.com Direccion: Grecia', ''),
+(8, 28, '2024-02-12 12:32:48', 'Bolso Canguro,Tapas Laterales,Casco ,Direccional LED', 88800, 'Pablo Testing V2', 'Telefono: 89689890 Correo: pabptest@gmail.com Direccion: Avenida 500 kilos', ''),
+(13, 31, '2024-02-12 13:38:01', 'Direccional LED,Casco ,Espejos NS200', 57900, 'Pepito Testing', 'Telefono: 89689890 Correo: pptest@gmail.com Direccion: Grecia', ''),
+(14, 32, '2024-02-28 20:25:45', 'Tapas Laterales,Casco ', 235000, 'Karla Robbin', 'Telefono: 89689890 Correo: pptest@gmail.com Direccion: Grecia', '1;6'),
+(15, 32, '2024-02-28 20:25:45', 'Tapas Laterales,Casco ', 235000, 'Karla Robbin', 'Telefono: 89689890 Correo: pptest@gmail.com Direccion: Grecia', '1;6');
 
 -- --------------------------------------------------------
 
@@ -194,19 +201,19 @@ ALTER TABLE `usertype`
 -- AUTO_INCREMENT de la tabla `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `Id_Client` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `Id_Client` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT de la tabla `sale`
 --
 ALTER TABLE `sale`
-  MODIFY `id_Sale` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_Sale` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `user`

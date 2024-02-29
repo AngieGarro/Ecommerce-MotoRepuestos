@@ -54,32 +54,34 @@ session_start();
 
 <h2 class="ml-3">Factura Orden de Compra</h2>
 <div class="container mt-3">
-<div class="row">
-<div class="form-group">
-<p><label for="">Compra realizada por: <?php echo  $row['Client_Name']; ?></label></p>
-<p><label for="">Fecha de la compra: <?php echo  $row['OrderDate']; ?></label></p>
-<h5>Detalles de productos</h5>
-<table class="table table-striped table-inverse mt-2" id="tableCartOrder">
-<thead class="thead-inverse">
-<tr>
-<th>Nombre</th>
-<th>Precio</th>
-</tr>
-</thead>
-<tbody> 
-</tbody>
-</table>
-
-
-<h5>Medio de Contacto</h5>
-<div class="form-group">
-<p><label for="">Telefono: <?php echo  $row['Client_Phone']; ?></label></p>
-<p><label for="">Correo: <?php echo  $row['Client_Email']; ?></label></p>
-<p><label for="">Dirección: <?php echo  $row['Client_Address']; ?></label></p>
-</div>
-<h5 class="ml-2"><strong>Total a pagar: ₡ <?php echo  $row['AmountTotal']; ?></strong></h5>
-<a target="_blank" href="ImprimirFactura.php?idVenta=<?php echo $id_Order ?>" class="btn btn-warning"><i class="fas fa-file-pdf"></i>Imprimir Comprobante</a>
-<small class="text-muted">Descargue el comprobante de Compra</small><br/>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+            <p><label for="">Compra realizada por: <?php echo  $row['Client_Name']; ?></label></p>
+            <p><label for="">Fecha de la compra: <?php echo  $row['OrderDate']; ?></label></p>
+            <h5>Detalles de productos</h5>
+            <div class="table-responsive">
+                    <table class="table table-striped table-inverse mt-2" id="tableCartOrder">
+                        <thead class="thead-inverse">
+                        <tr>
+                          <th>Imagen</th>
+                          <th>Nombre</th>
+                          <th>Cantidad</th>
+                          <th>Precio</th>
+                          <th>Total</th>                   
+                        </tr>
+                        </thead>
+                    <tbody> 
+                    </tbody>
+                    </table>
+                </div>
+                  <h5>Medio de Contacto</h5>
+                  <div class="form-group">
+                  <p><label for="">Telefono: <?php echo  $row['Client_Phone']; ?></label></p>
+                  <p><label for="">Correo: <?php echo  $row['Client_Email']; ?></label></p>
+                  <p><label for="">Dirección: <?php echo  $row['Client_Address']; ?></label></p>
+                  </div>
+                  <h5 class="ml-2"><strong>Total a pagar: ₡ <?php echo  $row['AmountTotal']; ?></strong></h5>
 <!-- Formulario que va a enviar los datos al reporte de ventas -->
 <?php
 if(isset($_REQUEST['guardarOrder'])){
@@ -92,9 +94,9 @@ if(isset($_REQUEST['guardarOrder'])){
   $NameClient = mysqli_real_escape_string($connection, $_POST['NameClient'] ?? '');
   $dateOrder = mysqli_real_escape_string($connection, $_POST['OrderDateHidden'] ?? '');
   $contact = mysqli_real_escape_string($connection, $_POST['ClientContactHidden'] ?? '');
-
-  $queryGuardar = "INSERT INTO `sale`(`id_Sale`, `User_idOrder`, `Date_Time`, `NameProducts`, `Total`, `Client_Name`, `Contact`) 
-  VALUES (NULL,'$OrderId','$dateOrder','$product','$total','$NameClient','$contact')";
+  $cant = mysqli_real_escape_string($connection, $_POST['CantidadHidden'] ?? '');
+  $queryGuardar = "INSERT INTO `sale`(`id_Sale`, `User_idOrder`, `Date_Time`, `NameProducts`, `Total`, `Client_Name`, `Contact`,`Cant`) 
+  VALUES (NULL,'$OrderId','$dateOrder','$product','$total','$NameClient','$contact','$cant')";
   $response = mysqli_query($connection, $queryGuardar);
   if($response){
   ?>
@@ -118,12 +120,18 @@ if(isset($_REQUEST['guardarOrder'])){
 <input type="hidden" id="NameClient" name="NameClient" value="<?php echo  $row['Client_Name']; ?>">
 <input type="hidden" id="OrderDateHidden" name="OrderDateHidden" value="<?php echo  $row['OrderDate']; ?>">
 <input type="hidden" id="NameProductHidden" name="NameProductHidden" value="">
+<input type="hidden" id="CantidadHidden" name="CantidadHidden" value="">
 <input type="hidden" id="TotalPagarHidden" name="TotalPagarHidden" value="<?php echo  $row['AmountTotal']; ?>">
 <input type="hidden" id="ClientContactHidden" name="ClientContactHidden" value="<?php echo 'Telefono: ', $row['Client_Phone'], ' Correo: ',$row['Client_Email'], ' Direccion: ',$row['Client_Address']; ?>">
 
-<button type="submit" name="guardarOrder" class="btn btn-danger mt-3">Enviar Orden</button>
+<button type="submit" name="guardarOrder" class="btn btn-danger mt-3 mb-3">Enviar Orden</button>
 <small class="text-muted">Envianos la orden a nuestro correo para que nosotros te contactemos.</small><br/>
 </form>
+
+<a target="_blank" href="ImprimirFactura.php?idVenta=<?php echo $id_Order ?>" class="btn btn-warning"><i class="fas fa-file-pdf"></i>Imprimir Comprobante</a>
+<small class="text-muted">Descargue el comprobante de Compra</small><br/>
+</div>
+</div>
 <?php
   }
   ?>

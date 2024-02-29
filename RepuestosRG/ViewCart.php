@@ -40,21 +40,25 @@ include_once 'Menu.php';
     <tr>
         <th>Imagen</th>
         <th>Nombre</th>
+        <th>Cantidad</th>
         <th>Precio</th>
+        <th>Total</th>
         <th></th>
     </tr>
 </thead>
   <tbody> 
   </tbody>
 </table>
+<div id="alertaExistencia" class="alert alert-danger" style="display: none;">
+  La cantidad seleccionada supera la existencia del producto.
+</div>
 <div class="dropdown-divider"></div>
 <div class="row">
     <h4 class="m-5"><strong>Total a pagar:</strong></h4><h4 class="mt-5" id="Total"></h4>
 </div>
 </div>
 <div class="dropdown-divider"></div>
-<a href="DatosCompra.php" class="btn btn-danger ml-5 mb-3" role="button">Orden de Compra</a>
-<small class="text-muted">Realizar procedimiento para generar la factura de compra</small>
+<a href="DatosCompra.php" class="btn btn-danger ml-5 mb-3" role="button">Datos de Compra</a>
 
 <footer class="main-footer">
     <div class="float-right d-none d-sm-block">

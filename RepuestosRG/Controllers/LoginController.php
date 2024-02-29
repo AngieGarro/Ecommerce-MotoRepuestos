@@ -13,7 +13,6 @@ if (isset($_POST['user']) && isset($_POST['Pwrd'])) {
     $pwrdForm = $_POST['Pwrd'];
     $rol = $user->getRol($userForm, $pwrdForm);
     $idUsuario = $user->userExists($_POST['user'], $_POST['Pwrd']);
-
     // Verificar si las credenciales son correctas
     if ($user->userExists($userForm, $pwrdForm)) {
         // Establecer la sesión del usuario

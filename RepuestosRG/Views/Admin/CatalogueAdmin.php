@@ -137,6 +137,7 @@
                     <th>Detalle</th>
                     <th>Precio</th>
                     <th>Código</th>
+                    <th>Existencia</th>
                     <th>Imagen(es)</th>
                     <th>Acciones</th>
                   </tr>
@@ -156,6 +157,7 @@
                     <td><?php echo $row['Detail']?></td>
                     <td><?php echo $row['Price']?></td>
                     <td><?php echo $row['Code_Product']?></td>
+                    <td><?php echo $row['Stock']?></td>
                     <td><?php echo $row['Files']?></td>
                     <td>
                       <a href="CatalogueAdmin.php?idDelete=<?php echo $row['id']?>" class="text-danger borrar ml-2" title="Eliminar Producto">Borrar<i class="fas fa-trash ml-2"></i></a>
@@ -175,6 +177,7 @@
                     <th>Detalle</th>
                     <th>Precio</th>
                     <th>Código</th>
+                    <th>Existencia</th>
                     <th>Imagen(es)</th>
                     <th>Acciones</th>
                   </tr>
@@ -205,7 +208,7 @@ if(isset($_POST['guardar'])){
     $detail = mysqli_real_escape_string($connection, $_POST['Detail'] ?? '');
     $price = mysqli_real_escape_string($connection, $_POST['Price'] ?? '');
     $code = mysqli_real_escape_string($connection, $_POST['Code_Product'] ?? '');
-
+    $stock = mysqli_real_escape_string($connection, $_POST['Stock'] ?? '');
     // Procesar la imagen
     $file_name = $_FILES["Files"]["name"];
     $file_tmp_name = $_FILES["Files"]["tmp_name"];
@@ -227,8 +230,8 @@ if(isset($_POST['guardar'])){
         move_uploaded_file($file_tmp_name, $upload_path);
 
         // Insertar datos en la tabla de productos
-        $query = "INSERT INTO `product`(`Name`, `Detail`, `Price`, `Code_Product`, `Files`) 
-                  VALUES ('$name', '$detail', '$price', '$code', '$new_name')";
+        $query = "INSERT INTO `product`(`Name`, `Detail`, `Price`, `Code_Product`, `Files`,`Stock`) 
+                  VALUES ('$name', '$detail', '$price', '$code', '$new_name', '$stock')";
         $response = mysqli_query($connection, $query);
         if($response){
           ?>
@@ -267,6 +270,10 @@ if(isset($_POST['guardar'])){
               <div class="form-group">
                 <label for="Code_Product">Código Producto:</label>
                 <input name="Code_Product" type="text" class="form-control"require>
+              </div>
+              <div class="form-group">
+                <label for="Stock">Existencia:</label>
+                <input name="Stock" type="number" class="form-control"require>
               </div>
               <div class="form-group">
               <div class="row mb-3">

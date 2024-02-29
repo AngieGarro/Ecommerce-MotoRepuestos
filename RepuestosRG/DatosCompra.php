@@ -48,7 +48,7 @@ session_start();
                 if(isset($_REQUEST['guardar'])){
                     include_once "Models/BD_Repuestos.php";
                     $connection = mysqli_connect($host, $user, $pass, $db);
-                
+                    
                     $total = mysqli_real_escape_string($connection, $_POST['totalHidden'] ?? '');
                     $NameClient = mysqli_real_escape_string($connection, $_POST['nombreCliente'] ?? '');
                     $PhoneClient = mysqli_real_escape_string($connection, $_POST['CelCliente'] ?? '');
@@ -76,7 +76,7 @@ session_start();
             ?>
             <div class="container mt-3">
             <div class="row">
-            <div class="col-6">
+            <div class="col-lg-6">
                 <form method="post">
                     <h3>Datos para Orden de Compra</h3>
                     <div class="form-group">
@@ -100,15 +100,17 @@ session_start();
                         <small class="text-muted mb-3">En caso de que requiera servicio express ponga la ubicación más exacta</small>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-lg-6">
                     <h4>Detalles de productos</h4>
                     <div class="row">
-                    <table class="table table-striped table-inverse m-5" id="tableCart">
+                    <table class="table table-striped table-inverse m-5" id="tableCartOrder">
                     <thead class="thead-inverse">
                         <tr>
                             <th>Imagen</th>
                             <th>Nombre</th>
+                            <th>Cantidad</th>
                             <th>Precio</th>
+                            <th>Total</th>
                         </tr>
                     </thead>
                     <tbody> 

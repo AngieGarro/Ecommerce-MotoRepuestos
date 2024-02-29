@@ -192,6 +192,7 @@ $numUsers = $rowNumUser['num_user'];
                     <th>Id Orden</th>
                     <th>Fecha</th>
                     <th>Detalle Productos</th>
+                    <th>Cantidad</th>
                     <th>Total</th>
                     <th>Cliente</th>
                     <th>Contacto</th>
@@ -210,6 +211,7 @@ $numUsers = $rowNumUser['num_user'];
                     <td><?php echo $row['User_idOrder']?></td>
                     <td><?php echo $row['Date_Time']?></td>
                     <td><?php echo $row['NameProducts']?></td>
+                    <td><?php echo $row['Cant']?></td>
                     <td>₡<?php echo $row['Total']?></td>
                     <td><?php echo $row['Client_Name']?></td>
                     <td><?php echo $row['Contact']?></td>

@@ -80,13 +80,7 @@ include_once "Menu.php";
             <h3 class="card-title"><strong><?php echo $row['Name'] ?></strong></h3>
             <p class="card-text"><?php echo $row['Detail'] ?></p>
             <p class="card-text"><strong>Precio: </strong>₡ <?php echo $row['Price'] ?></p>
-            <a href="#" class="btn btn-danger addToCart" 
-              data-id="<?php echo $row['id']; ?>"
-              data-name="<?php echo $row['Name']; ?>"
-              data-price="<?php echo $row['Price']; ?>"
-              data-files="<?php echo $row['Files']; ?>">
-              <i class="fa fa-shopping-cart"></i> Agregar al carrito
-            </a>
+            <a href="DetailProduct.php?id=<?php echo $row['id']?>" class="btn btn-danger">Ver</a>
           </div>
         </div>
       </div>

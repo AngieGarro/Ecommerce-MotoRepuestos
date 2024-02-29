@@ -123,9 +123,9 @@ if(isset($_POST['editar'])){
     $name = mysqli_real_escape_string($connection, $_POST['Name'] ?? '');
     $detail = mysqli_real_escape_string($connection, $_POST['Detail'] ?? '');
     $price = mysqli_real_escape_string($connection, $_POST['Price'] ?? '');
-
+    $stock = mysqli_real_escape_string($connection, $_POST['Stock'] ?? '');
     // Actualizar los datos en la tabla de productos
-    $update_query = "UPDATE product SET `Name`='$name', `Detail`='$detail', `Price`='$price' WHERE id ='$id_edit' ";
+    $update_query = "UPDATE product SET `Name`='$name', `Detail`='$detail', `Price`='$price',`Stock`='$stock'  WHERE id ='$id_edit' ";
     $update_response = mysqli_query($connection, $update_query);
 
     // Verificar si la actualización se realizó correctamente
@@ -146,7 +146,7 @@ if(isset($_GET['idEdit'])) {
     $id_edit = mysqli_real_escape_string($connection, $_GET['idEdit']);
 
     // Obtener los datos del producto a editar
-    $query = "SELECT id, Name, Detail, Price FROM product WHERE id = '$id_edit'";
+    $query = "SELECT id, Name, Detail, Price, Stock FROM product WHERE id = '$id_edit'";
     $response = mysqli_query($connection, $query);
     $row = mysqli_fetch_assoc($response);
 ?>
@@ -165,6 +165,10 @@ if(isset($_GET['idEdit'])) {
     <div class="form-group">
         <label for="Price">Precio:</label>
         <input name="Price" type="text" class="form-control" value="<?php echo $row['Price']; ?>">
+    </div>
+    <div class="form-group">
+        <label for="Stock">Existencia:</label>
+        <input name="Stock" type="text" class="form-control" value="<?php echo $row['Stock']; ?>">
     </div>
     <div class="form-group">
         <button type="submit" name="editar" class="btn bg-gradient-danger float-right">Guardar Cambios</button>
